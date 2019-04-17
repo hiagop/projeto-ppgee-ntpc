@@ -1,0 +1,25 @@
+{
+  "name": "app-server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "author": "Hiago Prata <hcprata17@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "express-session": "^1.16.1",
+    "session-file-store": "^1.2.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.3",
+    "nodemon": "^1.18.11"
+  },
+  "scripts": {
+    "dev": "babel-node ./src/server.js",
+    "build": "babel ./src --out-dir dist"
+  }
+}
