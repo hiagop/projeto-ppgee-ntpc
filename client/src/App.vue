@@ -1,22 +1,10 @@
 <template>
   <div id="app">
-    <QuestionArea></QuestionArea>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import QuestionArea from './components/QuestionArea'
-export default {
-  name: 'app',
-  components: {
-    QuestionArea
-  }
-  // data () {
-  //   return {
-  //     msg: 'Welcome to Your Vue.js App'
-  //   }
-  // }
-}
 </script>
 
 <style lang="scss">

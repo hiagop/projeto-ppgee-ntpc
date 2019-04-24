@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <b-container>
     <h4 class="mb-4">Selecione a opção que lhe descreve melhor nesse momento.</h4>
 
     <b-form-group>
@@ -21,7 +21,7 @@
       :disabled="questions[index].answer === null"
     >Próxima</b-button>
     <b-button variant="success" v-else :disabled="questions[index].answer === null">Finalizar</b-button>
-  </div>
+  </b-container>
 </template>
 
 <script>
