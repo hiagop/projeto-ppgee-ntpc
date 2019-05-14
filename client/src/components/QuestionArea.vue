@@ -12,7 +12,13 @@
         :name="'question'+questions[index].id"
       />
     </b-form-group>
-    <b-progress class="w-50 prog-bar" :value="index" :max="questions.length - 1"/>
+
+    <b-progress class="w-50 prog-bar" show-progress animated>
+      <b-progress-bar :value="index + 1" :max="questions.length">
+        {{ index + 1 }}/{{ questions.length - 1 }}
+      </b-progress-bar>
+    </b-progress>
+
     <b-button variant="outline-primary" @click="index--" v-if="index>0">Anterior</b-button>
     <b-button
       variant="primary"

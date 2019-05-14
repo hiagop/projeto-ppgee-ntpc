@@ -8,9 +8,6 @@
     </div>
     <div>
         <router-link to='/questions'>
-            <b-button :disabled="!accepted">Login com Twitter</b-button>
-        </router-link>
-        <router-link to='/questions'>
             <b-button :disabled="!accepted">Login com Facebook</b-button>
         </router-link>
     </div>
