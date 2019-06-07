@@ -14,18 +14,14 @@ const server = express();
 const FileStore = FileStoreGenerator(session);
 
 server.use(session({
-    genid: (req) => {
-        console.log("inside the session config callback:")
-        console.log(req.sessionID)
-        return uuid()
-    },
+    genid: (req) => { return uuid() },
     store: new FileStore(),
     secret: 'patati patata',
     resave: false,
     saveUninitialized: true
 }));
 server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({extended: true}));
+server.use(bodyParser.urlencoded({ extended: true }));
 server.use('/', api);
 
 server.listen(port, () => {
