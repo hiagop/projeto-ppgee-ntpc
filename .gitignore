@@ -1,4 +1,4 @@
-**/node_modules/
-**/sessions/
-**/dist/
-.vscode/
+**/node_modules/*
+**/sessions/*
+**/dist/*
+.vscode/*
