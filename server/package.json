@@ -25,6 +25,7 @@
   },
   "scripts": {
     "dev": "ts-node ./src/server.ts",
-    "watch": "nodemon"
+    "watch": "nodemon",
+    "clean": "rm -rf ./dist"
   }
 }
