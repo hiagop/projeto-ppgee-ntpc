@@ -1,40 +1,23 @@
-import express from 'express';
+import express from "express";
+import {
+  login,
+  loginCallback,
+  logout,
+  postQuestions
+} from "../controllers/user.controller";
 
-let api = express();
+const api = express();
 
 api.get("/", (req, res) => {
-    res.json({ 
-                path: req.path,
-                session_id: req.sessionID })
-})
+  res.json({
+    path: req.path,
+    session_id: req.sessionID
+  });
+});
 
-api.get("/login", (req, res) => {
-    res.json({ 
-                path: req.path,
-                session_id: req.sessionID })
-})
-
-api.get("/login/callback", (req, res) => {
-    res.json({ 
-                path: req.path,
-                session_id: req.sessionID 
-             })
-})
-
-api.get("/logout", (req, res) => {
-    res.json({ 
-                path: req.path,
-                session_id: req.sessionID 
-             })
-})
-
-api.post("/questions", (req, res) => {
-    console.log(req.body)
-    res.json({ 
-                path: req.path,
-                session_id: req.sessionID,
-                data: req.body 
-             })
-})
+api.get("/login", login);
+api.get("/login/callback", loginCallback);
+api.get("/logout", logout);
+api.post("/questions", postQuestions);
 
 export default api;
