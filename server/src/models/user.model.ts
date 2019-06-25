@@ -6,8 +6,14 @@ export interface UserModel extends Document {
   email: string;
   gender: string;
   birthday: Date;
-  hometown: string;
-  location: string;
+  hometown: {
+    id: string;
+    name: string;
+  };
+  location: {
+    id: string;
+    name: string;
+  };
   auth: {
     access_token: string;
     expires_on: Date;
@@ -31,7 +37,7 @@ export interface UserModel extends Document {
       id: string;
       name: string;
       message?: string;
-      description: string;
+      description?: string;
       link: string;
       type: string;
       status_type: string;
@@ -46,8 +52,8 @@ const UserSchema = new Schema({
     email: { type: String },
     gender: { type: String },
     birthday: { type: Date },
-    hometown: { type: String },
-    location: { type: String }
+    hometown: { id: { type: String }, name: { type: String } },
+    location: { id: { type: String }, name: { type: String } }
   },
   auth: {
     access_token: { type: String },
@@ -64,15 +70,15 @@ const UserSchema = new Schema({
       id: { type: Number },
       name: { type: String },
       link: { type: String },
-      description: { type: String }
+      description: { type: String, required: false }
     }
   ],
   posts: [
     {
       id: { type: String },
       name: { type: String },
-      message: { type: String },
-      description: { type: String },
+      message: { type: String, required: false },
+      description: { type: String, required: false },
       link: { type: String },
       type: { type: String },
       status_type: { type: String }
