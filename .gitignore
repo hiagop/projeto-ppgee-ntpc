@@ -1,4 +1,5 @@
 **/node_modules/*
 **/sessions/*
 **/dist/*
+**/yarn-error.log
 .vscode/*
