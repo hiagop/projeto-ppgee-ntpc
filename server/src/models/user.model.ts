@@ -1,26 +1,36 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-export interface UserDoc extends Document {
-  id: number;
+export interface UserModel extends Document {
+  fbid: number;
   name: string;
   email: string;
   gender: string;
   birthday: Date;
   hometown: string;
   location: string;
+  auth: {
+    access_token: string;
+    expires_on: Date;
+  };
+  questions: [
+    {
+      question_id: number;
+      answer: number;
+    }
+  ];
   likes: [
     {
       id: number;
       name: string;
       link: string;
-      description: string;
+      description?: string;
     }
   ];
   posts: [
     {
       id: string;
       name: string;
-      message: string;
+      message?: string;
       description: string;
       link: string;
       type: string;
@@ -30,16 +40,28 @@ export interface UserDoc extends Document {
 }
 
 const UserSchema = new Schema({
-  id: Number,
-  name: { type: String },
-  email: { type: String },
-  gender: { type: String },
-  birthday: Date,
-  hometown: { type: String },
-  location: { type: String },
+  profile: {
+    fbid: { type: Number },
+    name: { type: String },
+    email: { type: String },
+    gender: { type: String },
+    birthday: { type: Date },
+    hometown: { type: String },
+    location: { type: String }
+  },
+  auth: {
+    access_token: { type: String },
+    expires_on: { type: Date }
+  },
+  questions: [
+    {
+      question_id: { type: Number },
+      answer: { type: Number }
+    }
+  ],
   likes: [
     {
-      id: Number,
+      id: { type: Number },
       name: { type: String },
       link: { type: String },
       description: { type: String }
@@ -57,3 +79,5 @@ const UserSchema = new Schema({
     }
   ]
 });
+
+export default mongoose.model<UserModel>("User", UserSchema);
