@@ -4,7 +4,7 @@ import {
   loginCallback,
   logout,
   postQuestions
-} from "../controllers/user.controller";
+} from "@controllers/user.controller";
 
 const api = express();
 
