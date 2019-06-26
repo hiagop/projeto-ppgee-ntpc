@@ -2,6 +2,7 @@ const fbConfig = {
   clientID: "",
   clientSecret: "",
   callbackURL: "",
+  passReqToCallback: true,
   profileFields: [
     "id",
     "name",

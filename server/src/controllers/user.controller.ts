@@ -1,28 +1,53 @@
 import passport from "passport";
-import { Strategy } from "passport-facebook";
+import { Strategy, Profile } from "passport-facebook";
 import { Request, Response } from "express";
 import fbConfig from "@configs/facebook";
 import User from "@models/user.model";
+import axios from "axios";
 
 passport.use(
-  new Strategy(fbConfig, async (accessToken, refreshToken, profile, done) => {
-    User.findOne({ fbid: profile.id })
-      .then(user => {
-        if (!user) {
-          let newUser = new User();
-          newUser.fbid = profile.id;
-          newUser.email = profile.emails[0].value;
-          newUser.name = profile.displayName;
-          newUser.gender = profile.gender;
-          newUser.birthday = new Date(profile.birthday);
+  new Strategy(
+    fbConfig,
+    (
+      req: any,
+      accessToken: string,
+      _refreshToken: string,
+      profile: Profile,
+      done: any
+    ) => {
+      if (req.user) {
+        done();
+      }
+      User.findOne({ fbid: profile.id })
+        .then(async user => {
+          if (!user) {
+            const { clientID, clientSecret } = fbConfig;
+            const fbGraphBaseUrl = `https://graph.facebook.com`;
+            const fbGraphUrl = `/oauth/access_token?grant_type=fb_exchange_token&client_id=${clientID}&client_secret=${clientSecret}&fb_exchange_token=${accessToken}`;
 
-          newUser.auth.access_token = accessToken;
-        }
-      })
-      .catch(err => {
-        done(err);
-      });
-  })
+            const fbGraphRes = await axios.get(fbGraphBaseUrl + fbGraphUrl);
+
+            let newUser = new User({
+              fbid: profile.id,
+              email: profile.emails[0].value,
+              name: profile.displayName,
+              gender: profile.gender,
+              birthday: new Date(profile.birthday),
+              auth: {
+                access_token: fbGraphRes.data.access_token,
+                expires_on: new Date(fbGraphRes.data.expires_in)
+              }
+            });
+            done(null, newUser);
+          } else {
+            req;
+          }
+        })
+        .catch(err => {
+          done(err);
+        });
+    }
+  )
 );
 
 export function login(req: Request, res: Response) {}
