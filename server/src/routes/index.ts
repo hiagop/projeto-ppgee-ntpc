@@ -1,7 +1,8 @@
 import express from "express";
 import {
   login,
-  loginCallback,
+  fbLogin,
+  fbLoginCallback,
   logout,
   postQuestions
 } from "@controllers/user.controller";
@@ -16,7 +17,8 @@ api.get("/", (req, res) => {
 });
 
 api.get("/login", login);
-api.get("/login/callback", loginCallback);
+api.get("/login/facebook", fbLogin);
+api.get("/login/facebook/callback", fbLoginCallback);
 api.get("/logout", logout);
 api.post("/questions", postQuestions);
 
