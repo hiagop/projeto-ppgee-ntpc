@@ -1,10 +1,10 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 export interface UserModel extends Document {
-  fbid: number;
+  fbid: string;
   name: string;
   email: string;
-  gender: string;
+  gender: string | undefined;
   birthday: Date;
   hometown: {
     id: string;
@@ -26,7 +26,7 @@ export interface UserModel extends Document {
   ];
   likes: [
     {
-      id: number;
+      id: string;
       name: string;
       link: string;
       description?: string;
@@ -47,7 +47,7 @@ export interface UserModel extends Document {
 
 const UserSchema = new Schema({
   profile: {
-    fbid: { type: Number },
+    fbid: { type: String },
     name: { type: String },
     email: { type: String },
     gender: { type: String },
@@ -56,8 +56,11 @@ const UserSchema = new Schema({
     location: { id: { type: String }, name: { type: String } }
   },
   auth: {
-    access_token: { type: String },
-    expires_on: { type: Date }
+    type: {
+      access_token: { type: String },
+      expires_on: { type: Date }
+    },
+    required: true
   },
   questions: [
     {
