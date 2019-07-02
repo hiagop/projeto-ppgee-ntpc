@@ -31,8 +31,10 @@
     "typescript": "^3.4.5"
   },
   "scripts": {
+    "start": "node ./dist/server.js",
     "dev": "ts-node ./src/server.ts",
-    "watch": "nodemon",
+    "watch:dev": "nodemon",
+    "build": "tsc",
     "clean": "rm -rf ./dist"
   }
 }
