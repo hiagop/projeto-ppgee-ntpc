@@ -1,4 +1,6 @@
 import express from "express";
+import passport from "passport";
+import { fbStrategy } from "@configs/facebook";
 import {
   login,
   fbLogin,
@@ -9,6 +11,8 @@ import {
 
 const api = express();
 
+passport.use(fbStrategy);
+
 api.get("/", (req, res) => {
   res.json({
     path: req.path,
@@ -17,8 +21,12 @@ api.get("/", (req, res) => {
 });
 
 api.get("/login", login);
-api.get("/login/facebook", fbLogin);
-api.get("/login/facebook/callback", fbLoginCallback);
+api.get("/login/facebook", passport.authenticate("facebook"), fbLogin);
+api.get(
+  "/login/facebook/callback",
+  passport.authenticate("facebook"),
+  fbLoginCallback
+);
 api.get("/logout", logout);
 api.post("/questions", postQuestions);
 

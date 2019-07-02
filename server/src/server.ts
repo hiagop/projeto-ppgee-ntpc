@@ -4,8 +4,7 @@ import bodyParser from "body-parser";
 import FileStoreGenerator from "session-file-store";
 import { v4 as uuid } from "uuid";
 // import CORS from 'cors'
-
-import api from "./routes";
+import api from "@routes/user.route";
 
 const port: number = parseInt(process.env.SERVER_PORT as string) || 8000;
 
