@@ -9,7 +9,7 @@ import {
   postQuestions
 } from "@controllers/user.controller";
 
-const api = express();
+const api = express.Router();
 
 passport.use(fbStrategy);
 
