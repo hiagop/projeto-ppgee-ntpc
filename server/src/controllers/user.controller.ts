@@ -1,3 +1,5 @@
+import { Request, Response } from "express";
+
 export function login(req: Request, res: Response): void {}
 export function fbLogin(req: Request, res: Response): void {}
 export function logout(req: Request, res: Response): void {}

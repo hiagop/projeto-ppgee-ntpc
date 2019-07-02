@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Request, Response } from "express";
+import { Request } from "express";
 import {
   Strategy,
   Profile,
