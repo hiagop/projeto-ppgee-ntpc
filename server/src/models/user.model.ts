@@ -1,5 +1,26 @@
 import mongoose, { Document, Schema } from "mongoose";
 
+export interface Question {
+  id: number;
+  value: number;
+  answer: number;
+}
+
+export interface Page {
+  id: string;
+  name: string;
+  link: string;
+  description: string;
+}
+export interface Post {
+  id: string;
+  name: string;
+  message: string;
+  description: string;
+  link: string;
+  type: string;
+  status_type: string;
+}
 export interface UserModel extends Document {
   fbid: string;
   name: string;
@@ -18,32 +39,9 @@ export interface UserModel extends Document {
     access_token: string;
     expires_on: Date;
   };
-  questions: [
-    {
-      id: number;
-      value: number;
-      answer: number;
-    }
-  ];
-  likes: [
-    {
-      id: string;
-      name: string;
-      link: string;
-      description: string;
-    }
-  ];
-  posts: [
-    {
-      id: string;
-      name: string;
-      message: string;
-      description: string;
-      link: string;
-      type: string;
-      status_type: string;
-    }
-  ];
+  questions: [Question];
+  likes: [Page];
+  posts: [Post];
 }
 
 const UserSchema = new Schema({
@@ -57,11 +55,8 @@ const UserSchema = new Schema({
     location: { id: { type: String }, name: { type: String } }
   },
   auth: {
-    type: {
-      access_token: { type: String, required: true },
-      expires_on: { type: Date, required: true }
-    },
-    required: true
+    access_token: { type: String, required: true },
+    expires_on: { type: Date, required: true }
   },
   questions: [
     {
