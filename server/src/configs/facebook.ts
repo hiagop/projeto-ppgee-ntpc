@@ -8,9 +8,9 @@ import {
 import User from "@models/user.model";
 
 const fbConfig = {
-  clientID: "",
-  clientSecret: "",
-  callbackURL: "",
+  clientID: process.env.FB_CLIENT_ID || "",
+  clientSecret: process.env.FB_CLIENT_SECRET || "",
+  callbackURL: "/login/facebook/callback",
   passReqToCallback: true,
   profileFields: [
     "id",
