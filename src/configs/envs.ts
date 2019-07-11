@@ -1,7 +1,3 @@
-import dotenv from "dotenv";
-
-dotenv.config({ path: ".env" });
-
 export const config = {
   db: {
     user: process.env.MONGODB_USER as string,
@@ -15,6 +11,10 @@ export const config = {
   },
   server: {
     port: process.env.SERVER_PORT as string
+  },
+  fb: {
+    client_id: process.env.FB_CLIENT_ID,
+    client_secret: process.env.FB_CLIENT_SECRET
   }
 };
 
