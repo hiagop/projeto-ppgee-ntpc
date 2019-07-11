@@ -9,13 +9,14 @@ import { v4 as uuid } from "uuid";
 import FileStoreGenerator from "session-file-store";
 import history from "connect-history-api-fallback";
 import userApi from "@routes/user.route";
+import { config } from "./configs/index";
 
 const server = express();
 
-const mongodbURL = "mongodb://localhost:27017/";
+const mongodbURL = `mongodb://${config.db.host}/${config.db.database}`;
 const mongodbOptions = {
   useNewUrlParser: true,
-  auth: { user: "", password: "" },
+  auth: { user: config.db.user, password: config.db.password },
   authSource: "admin"
 };
 
@@ -39,7 +40,7 @@ server.use(
       return uuid();
     },
     store: new FileStore(),
-    secret: "patati patata",
+    secret: config.session.secret,
     resave: false,
     saveUninitialized: true
   })
