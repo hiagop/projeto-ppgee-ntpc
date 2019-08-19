@@ -1,10 +1,31 @@
 import mongoose, { Document, Schema } from "mongoose";
 
+export interface Question {
+  id: number;
+  value: number;
+  answer: number;
+}
+
+export interface Page {
+  id: string;
+  name: string;
+  link: string;
+  description: string;
+}
+export interface Post {
+  id: string;
+  name: string;
+  message: string;
+  description: string;
+  link: string;
+  type: string;
+  status_type: string;
+}
 export interface UserModel extends Document {
   fbid: string;
   name: string;
   email: string;
-  gender: string | undefined;
+  gender: string;
   birthday: Date;
   hometown: {
     id: string;
@@ -18,54 +39,30 @@ export interface UserModel extends Document {
     access_token: string;
     expires_on: Date;
   };
-  questions: [
-    {
-      question_id: number;
-      answer: number;
-    }
-  ];
-  likes: [
-    {
-      id: string;
-      name: string;
-      link: string;
-      description?: string;
-    }
-  ];
-  posts: [
-    {
-      id: string;
-      name: string;
-      message?: string;
-      description?: string;
-      link: string;
-      type: string;
-      status_type: string;
-    }
-  ];
+  questions: [Question];
+  likes: [Page];
+  posts: [Post];
 }
 
 const UserSchema = new Schema({
   profile: {
-    fbid: { type: String },
+    fbid: { type: String, unique: true },
     name: { type: String },
-    email: { type: String },
+    email: { type: String, unique: true },
     gender: { type: String },
     birthday: { type: Date },
     hometown: { id: { type: String }, name: { type: String } },
     location: { id: { type: String }, name: { type: String } }
   },
   auth: {
-    type: {
-      access_token: { type: String },
-      expires_on: { type: Date }
-    },
-    required: true
+    access_token: { type: String, required: true },
+    expires_on: { type: Date, required: true }
   },
   questions: [
     {
-      question_id: { type: Number },
-      answer: { type: Number }
+      id: { type: Number, min: 0, max: 21, unique: true },
+      value: { type: Number, min: 0, max: 3 },
+      answer: { type: Number, min: 0, max: 3 }
     }
   ],
   likes: [
@@ -73,15 +70,15 @@ const UserSchema = new Schema({
       id: { type: Number },
       name: { type: String },
       link: { type: String },
-      description: { type: String, required: false }
+      description: { type: String, default: "" }
     }
   ],
   posts: [
     {
       id: { type: String },
       name: { type: String },
-      message: { type: String, required: false },
-      description: { type: String, required: false },
+      message: { type: String, default: "" },
+      description: { type: String, default: "" },
       link: { type: String },
       type: { type: String },
       status_type: { type: String }

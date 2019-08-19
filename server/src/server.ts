@@ -1,21 +1,41 @@
+import cors from "cors";
 import express from "express";
-import session from "express-session";
+import passport from "passport";
+import mongoose from "mongoose";
+import bluebird from "bluebird";
 import bodyParser from "body-parser";
-import FileStoreGenerator from "session-file-store";
+import session from "express-session";
 import { v4 as uuid } from "uuid";
-// import CORS from 'cors'
-
-import api from "./routes";
-
-const port: number = parseInt(process.env.SERVER_PORT as string) || 8000;
+import FileStoreGenerator from "session-file-store";
+import history from "connect-history-api-fallback";
+import userApi from "@routes/user.route";
 
 const server = express();
 
+const mongodbURL = "mongodb://localhost:27017/";
+const mongodbOptions = {
+  useNewUrlParser: true,
+  auth: { user: "", password: "" },
+  authSource: "admin"
+};
+
+(mongoose as any).Promise = bluebird;
+mongoose.set("useCreateIndex", true);
+mongoose
+  .connect(mongodbURL, mongodbOptions)
+  .then(() => {
+    console.log(`mongodb connected at ${mongodbURL}`);
+  })
+  .catch(err => {
+    console.log(`mongodb connection error: ${err}`);
+  });
+
 const FileStore = FileStoreGenerator(session);
 
+server.set("port", process.env.PORT || 8000);
 server.use(
   session({
-    genid: req => {
+    genid: () => {
       return uuid();
     },
     store: new FileStore(),
@@ -24,10 +44,14 @@ server.use(
     saveUninitialized: true
   })
 );
+server.use(cors());
+server.use(history());
+server.use(passport.initialize());
+server.use(passport.session());
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
-server.use("/", api);
+server.use("/", userApi);
 
-server.listen(port, () => {
-  console.log("Server running on port:", port);
+server.listen(server.get("port"), () => {
+  console.log("Server running on port:", server.get("port"));
 });

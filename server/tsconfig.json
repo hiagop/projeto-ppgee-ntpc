@@ -6,8 +6,10 @@
     "noImplicitAny": true,
     "esModuleInterop": true,
     "baseUrl": ".",
+    "outDir": "dist",
     "paths": {
       "@models/*": ["./src/models/*"],
+      "@routes/*": ["./src/routes/*"],
       "@configs/*": ["./src/configs/*"],
       "@controllers/*": ["./src/controllers/*"]
     }
