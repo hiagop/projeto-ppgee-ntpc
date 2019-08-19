@@ -1,18 +1,15 @@
 import cors from "cors";
-import dotenv from "dotenv";
 import express from "express";
 import passport from "passport";
 import mongoose from "mongoose";
 import bluebird from "bluebird";
 import bodyParser from "body-parser";
 import session from "express-session";
-import { v4 as uuid } from "uuid";
 import FileStoreGenerator from "session-file-store";
 import history from "connect-history-api-fallback";
+import { v4 as uuid } from "uuid";
 import userApi from "@routes/user.route";
 import { config } from "@configs/envs";
-
-dotenv.config();
 
 const server = express();
 
