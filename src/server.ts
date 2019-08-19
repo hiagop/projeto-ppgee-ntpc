@@ -1,4 +1,5 @@
 import cors from "cors";
+import dotenv from "dotenv";
 import express from "express";
 import passport from "passport";
 import mongoose from "mongoose";
@@ -9,13 +10,18 @@ import { v4 as uuid } from "uuid";
 import FileStoreGenerator from "session-file-store";
 import history from "connect-history-api-fallback";
 import userApi from "@routes/user.route";
+import { config } from "@configs/envs";
+
+dotenv.config();
 
 const server = express();
 
-const mongodbURL = "mongodb://localhost:27017/";
+const mongodbURL = `mongodb://${config.db.host}:${config.db.port}/${
+  config.db.database
+}`;
 const mongodbOptions = {
   useNewUrlParser: true,
-  auth: { user: "", password: "" },
+  auth: { user: config.db.user, password: config.db.password },
   authSource: "admin"
 };
 
@@ -32,14 +38,14 @@ mongoose
 
 const FileStore = FileStoreGenerator(session);
 
-server.set("port", process.env.PORT || 8000);
+server.set("port", config.server.port || 8000);
 server.use(
   session({
     genid: () => {
       return uuid();
     },
     store: new FileStore(),
-    secret: "patati patata",
+    secret: config.session.secret,
     resave: false,
     saveUninitialized: true
   })

@@ -6,10 +6,11 @@ import {
   StrategyOptionWithRequest
 } from "passport-facebook";
 import User from "@models/user.model";
+import { config } from "@configs/envs";
 
 const fbConfig = {
-  clientID: process.env.FB_CLIENT_ID || "",
-  clientSecret: process.env.FB_CLIENT_SECRET || "",
+  clientID: config.fb.client_id,
+  clientSecret: config.fb.client_secret,
   callbackURL: "/login/facebook/callback",
   passReqToCallback: true,
   profileFields: [

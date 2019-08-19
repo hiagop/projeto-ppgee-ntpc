@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import User, { Question } from "@models/user.model";
 
-export function logout(req: Request, res: Response): void {
+export function logout(req: Request, res: Response) {
   if (!req.user) {
     res.redirect("/");
   } else {
@@ -32,17 +32,14 @@ export async function postQuestions(req: Request, res: Response) {
       });
     });
 
-    try {
-      user = await user.save();
+    user = await user.save();
 
-      if (user) {
-        return res.json({ success: true });
-      }
-    } catch (error) {
-      return res.json({
+    if (user) {
+      return res.status(200).json({ success: true });
+    } else {
+      return res.status(500).json({
         success: false,
-        msg: "could not save the questions to the database",
-        err: error
+        msg: "could not save the questions to the database"
       });
     }
   } else {
