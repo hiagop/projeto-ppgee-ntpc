@@ -48,10 +48,5 @@
     "watch:dev": "nodemon",
     "build": "tsc",
     "clean": "rm -rf ./dist"
-  },
-  "engine": {
-    "node": "10.16.0",
-    "yarn": "1.16.0",
-    "npm": "6.9.0"
   }
 }
