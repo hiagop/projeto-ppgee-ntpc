@@ -1,9 +1,9 @@
-import express, { Request, Response } from "express";
 import passport from "passport";
+import express, { Request, Response } from "express";
 import { fbStrategy } from "@configs/facebook";
 import {
-  isLoggedIn,
   logout,
+  isLoggedIn,
   postQuestions
 } from "@controllers/user.controller";
 
@@ -11,13 +11,10 @@ const api = express.Router();
 
 passport.use(fbStrategy);
 
-api.route("/hello").get((req: Request, res: Response) => {
-  res.send("Hello!");
-});
-api.route("/login/facebook").get(passport.authenticate("facebook"));
+api.route("/login/facebook").post(passport.authenticate("facebook"));
 api
   .route("/login/facebook/callback")
-  .get(
+  .post(
     passport.authenticate("facebook", { failureRedirect: "/login" }),
     (_req, res) => {
       res.redirect("/instructions");
