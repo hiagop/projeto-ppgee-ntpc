@@ -19,7 +19,7 @@ export interface Post {
   description: string;
   link: string;
   type: string;
-  status_type: string;
+  statusType: string;
 }
 export interface UserModel extends Document {
   fbid: string;
@@ -36,8 +36,8 @@ export interface UserModel extends Document {
     name: string;
   };
   auth: {
-    access_token: string;
-    expires_on: Date;
+    accessToken: string;
+    expiryDate: Date;
   };
   questions: [Question];
   likes: [Page];
@@ -55,8 +55,8 @@ const UserSchema = new Schema({
     location: { id: { type: String }, name: { type: String } }
   },
   auth: {
-    access_token: { type: String, required: true },
-    expires_on: { type: Date, required: true }
+    accessToken: { type: String, required: true },
+    expiryDate: { type: Date, required: true }
   },
   questions: [
     {
@@ -81,7 +81,7 @@ const UserSchema = new Schema({
       description: { type: String, default: "" },
       link: { type: String },
       type: { type: String },
-      status_type: { type: String }
+      statusType: { type: String }
     }
   ]
 });

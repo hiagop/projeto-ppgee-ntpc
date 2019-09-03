@@ -6,10 +6,11 @@ import {
   StrategyOptionWithRequest
 } from "passport-facebook";
 import User from "@models/user.model";
+import { config } from "@configs/envs";
 
 const fbConfig = {
-  clientID: process.env.FB_CLIENT_ID || "",
-  clientSecret: process.env.FB_CLIENT_SECRET || "",
+  clientID: config.fb.client_id,
+  clientSecret: config.fb.client_secret,
   callbackURL: "/login/facebook/callback",
   passReqToCallback: true,
   profileFields: [
@@ -21,10 +22,10 @@ const fbConfig = {
     "location",
     "hometown"
   ]
-};
+} as StrategyOptionWithRequest;
 
 export const fbStrategy = new Strategy(
-  fbConfig as StrategyOptionWithRequest,
+  fbConfig,
   async (
     req: Request,
     accessToken: string,
@@ -55,8 +56,8 @@ export const fbStrategy = new Strategy(
           gender: profile.gender,
           birthday: new Date(profile.birthday),
           auth: {
-            access_token: fbResponse.data.access_token,
-            expires_on: new Date(fbResponse.data.expires_in)
+            accessToken: fbResponse.data.access_token,
+            expiryDate: new Date(fbResponse.data.expires_in)
           }
         });
         // and save it
@@ -64,7 +65,10 @@ export const fbStrategy = new Strategy(
         if (newUser) {
           done(null, newUser);
         } else {
-          return done("could not save new user to the database");
+          return done(
+            new Error("could not save new user to the database"),
+            null
+          );
         }
       } else {
         /* 
@@ -76,15 +80,18 @@ export const fbStrategy = new Strategy(
         const fbGraphUrl = `/oauth/access_token?grant_type=fb_exchange_token&client_id=${clientID}&client_secret=${clientSecret}&fb_exchange_token=${accessToken}`;
         const fbResponse = await axios.get(fbGraphBaseUrl + fbGraphUrl);
 
-        user.auth.access_token = fbResponse.data.access_token;
-        user.auth.expires_on = new Date(fbResponse.data.expires_in);
+        user.auth.accessToken = fbResponse.data.access_token;
+        user.auth.expiryDate = new Date(fbResponse.data.expires_in);
 
         user = await user.save();
 
         if (user) {
           done(null, user);
         } else {
-          return done("could not update existing user's access token");
+          return done(
+            new Error("could not save new user to the database"),
+            null
+          );
         }
       }
     }
