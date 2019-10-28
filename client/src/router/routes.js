@@ -2,7 +2,12 @@ const routes = [
   {
     path: "/",
     component: () => import("layouts/VivaVida.vue"),
-    children: [{ path: "/se", component: () => import("pages/SocioEconomics.vue") }]
+    children: [
+      // { path: "/", component: () => import("pages/Index.vue") },
+      { path: "/", component: () => import("pages/BdiQuestionnaire.vue") },
+
+      { path: "/se", component: () => import("pages/SocioEconomics.vue") }
+    ]
   }
 ];
 

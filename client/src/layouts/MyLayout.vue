@@ -122,13 +122,9 @@ import { openURL } from "quasar";
 export default {
   name: "MyLayout",
   data() {
-    return {
-      leftDrawerOpen: false
-    };
+    return { leftDrawerOpen: false };
   },
-  methods: {
-    openURL
-  }
+  methods: { openURL }
 };
 </script>
 
