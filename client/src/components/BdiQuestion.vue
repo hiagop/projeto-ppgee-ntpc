@@ -1,24 +1,25 @@
 <template>
-  <div>
-    <!-- 
-      TODO: fix this]
-      [Vue warn]: Duplicate keys detected: '0'. This may cause an update error.
-         found in
-          <BdiQuestion> at src/components/BdiQuestion.vue
-              <BdiQuestionnaire> at src/pages/BdiQuestionnaire.vue
-                <QPageContainer>
-                  <QLayout>
-                    <VivaVida> at src/layouts/VivaVida.vue
-                      <App> at src/App.vue
-                        <Root> 
-    -->
-    <div v-for="option in question.options" :key="`key-${option.id}`">
-      <q-radio
-        :val="option.id"
-        :label="option.label"
-        v-model="question.answer"
-      />
-      <span>{{ option.value }}</span>
+  <div class="fit column content-start q-col-gutter-md">
+    <div class="col q-pa-lg">
+      <h5>{{ `${question.id}. ${question.label}` }}</h5>
+    </div>
+    <div
+      class="row"
+      v-for="option in question.options"
+      :key="`${question.id}.${option.id}`"
+    >
+      <div class="col-11 justify-start q-pl-md">
+        <q-radio
+          :val="option.id"
+          :label="option.label"
+          v-model="question.answer"
+        />
+      </div>
+      <div
+        class="col-1 justify-end q-pa-sm rounded-borders bg-blue-5 text-white text-center shadow-1"
+      >
+        {{ option.value }}
+      </div>
     </div>
   </div>
 </template>
