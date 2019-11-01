@@ -10,7 +10,9 @@
           >
             <img src="../assets/logo-viva-vida.svg">
           </q-avatar> -->
-          VivaVida
+          <router-link class="text-white" to="/">
+            VivaVida
+          </router-link>
         </q-toolbar-title>
         <q-btn elevated class="bg-blue-5" label="Login" to="/login" />
       </q-toolbar>
@@ -33,3 +35,9 @@ export default {
   }
 };
 </script>
+
+style.<style lang="scss" scoped>
+a {
+  text-decoration: none;
+}
+</style>

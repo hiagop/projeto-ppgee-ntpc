@@ -12,8 +12,8 @@
         >
         e aos
         <span
-          ><router-link to="/termos-de-servico"
-            >Termos de Serviço</router-link
+          ><router-link to="/termos-de-privacidade"
+            >Termos de Privacidade</router-link
           ></span
         >.
       </div>

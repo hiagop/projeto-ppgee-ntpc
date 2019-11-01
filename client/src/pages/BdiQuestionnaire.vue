@@ -26,7 +26,7 @@
           color="primary"
           type="submit"
           :loading="submitting"
-          :disabled="questions.map(q => q.answer).every(a => a !== null)"
+          :disabled="!questions.map(q => q.answer).every(a => a !== null)"
           v-if="index == 20"
           @click="submit()"
           label="Enviar"
