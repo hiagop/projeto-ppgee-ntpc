@@ -1,31 +1,40 @@
 <template>
-  <div>
-    <bdi-question :question="questions[index]"></bdi-question>
-    <div>
-      <q-btn
-        outline
-        color="secondary"
-        @click="index -= 1"
-        v-if="index >= 1"
-        label="Anterior"
-      />
-      <q-btn
-        color="secondary"
-        :disabled="questions[index].answer === null"
-        v-if="index <= 20"
-        @click="index += 1"
-        label="Próxima"
-      />
-      <q-btn
-        color="primary"
-        type="submit"
-        :disabled="questions[index].answer === null"
-        v-if="questions.map(q => q.answer).every(a => a !== null) && index > 20"
-        @click="sumbit()"
-        label="Enviar"
-      />
+  <q-page class="flex flex-center">
+    <div
+      class="fit column content-center items-center justify-center q-col-gutter-lg"
+    >
+      <div class="col">
+        <bdi-question :question="questions[index]"></bdi-question>
+      </div>
+
+      <div class="col q-gutter-xl">
+        <q-btn
+          outline
+          color="secondary"
+          @click="index -= 1"
+          v-if="index >= 1"
+          label="Anterior"
+        />
+        <q-btn
+          color="secondary"
+          :disabled="questions[index].answer === null"
+          v-if="index <= 20"
+          @click="index += 1"
+          label="Próxima"
+        />
+        <q-btn
+          color="primary"
+          type="submit"
+          :disabled="questions[index].answer === null"
+          v-if="
+            questions.map(q => q.answer).every(a => a !== null) && index > 20
+          "
+          @click="sumbit()"
+          label="Enviar"
+        />
+      </div>
     </div>
-  </div>
+  </q-page>
 </template>
 
 <script>
@@ -38,24 +47,30 @@ export default {
       questions: [
         {
           id: "1",
+          label: "",
           answer: null,
           options: [
-            { id: 0, label: "Não me sinto triste.", value: 0 },
-            { id: 1, label: "Eu me sinto triste.", value: 1 },
+            { id: 0, label: "Não me sinto triste", value: 0 },
+            {
+              id: 1,
+              label: "Eu me sinto triste grande parte do tempo",
+              value: 1
+            },
             {
               id: 2,
-              label: "Estou sempre triste e não consigo sair disso.",
+              label: "Estou triste o tempo todo",
               value: 2
             },
             {
               id: 3,
-              label: "Estou tão triste ou infeliz, que não consigo suportar.",
+              label: "Estou tão triste ou infeliz, que não consigo suportar",
               value: 3
             }
           ]
         },
         {
           id: "2",
+          label: "",
           answer: null,
           options: [
             {
@@ -79,6 +94,7 @@ export default {
         },
         {
           id: "3",
+          label: "",
           answer: null,
           options: [
             { id: 0, label: "Não me sinto um fracasso.", value: 0 },
@@ -102,6 +118,7 @@ export default {
         },
         {
           id: "4",
+          label: "",
           answer: null,
           options: [
             {
@@ -128,6 +145,7 @@ export default {
         },
         {
           id: "5",
+          label: "",
           answer: null,
           options: [
             { id: 0, label: "Não me sinto especialmente culpado.", value: 0 },
@@ -146,6 +164,7 @@ export default {
         },
         {
           id: "6",
+          label: "",
           answer: null,
           options: [
             { id: 0, label: "Não acho que esteja sendo punido.", value: 0 },
@@ -156,6 +175,7 @@ export default {
         },
         {
           id: "7",
+          label: "",
           answer: null,
           options: [
             {
@@ -170,6 +190,7 @@ export default {
         },
         {
           id: "8",
+          label: "",
           answer: null,
           options: [
             {
@@ -193,6 +214,7 @@ export default {
         },
         {
           id: "9",
+          label: "",
           answer: null,
           options: [
             {
@@ -211,6 +233,7 @@ export default {
         },
         {
           id: "10",
+          label: "",
           answer: null,
           options: [
             { id: 0, label: "Não choro mais que o habitual.", value: 0 },
@@ -226,6 +249,7 @@ export default {
         },
         {
           id: "11",
+          label: "",
           answer: null,
           options: [
             {
@@ -253,6 +277,7 @@ export default {
         },
         {
           id: "12",
+          label: "",
           answer: null,
           options: [
             {
@@ -281,6 +306,7 @@ export default {
         },
         {
           id: "13",
+          label: "",
           answer: null,
           options: [
             { id: 0, label: "Tomo decisões tão bem quanto antes.", value: 0 },
@@ -303,6 +329,7 @@ export default {
         },
         {
           id: "14",
+          label: "",
           answer: null,
           options: [
             {
@@ -327,6 +354,7 @@ export default {
         },
         {
           id: "15",
+          label: "",
           answer: null,
           options: [
             { id: 0, label: "Posso trabalhar tão bem quanto antes.", value: 0 },
@@ -349,6 +377,7 @@ export default {
         },
         {
           id: "16",
+          label: "",
           answer: null,
           options: [
             {
@@ -373,6 +402,7 @@ export default {
         },
         {
           id: "17",
+          label: "",
           answer: null,
           options: [
             {
@@ -395,6 +425,7 @@ export default {
         },
         {
           id: "18",
+          label: "",
           answer: null,
           options: [
             {
@@ -413,6 +444,7 @@ export default {
         },
         {
           id: "19a",
+          label: "",
           answer: null,
           options: [
             {
@@ -428,6 +460,7 @@ export default {
         },
         {
           id: "19b",
+          label: "",
           answer: null,
           options: [
             {
@@ -444,6 +477,7 @@ export default {
         },
         {
           id: "20",
+          label: "",
           answer: null,
           options: [
             {
@@ -473,6 +507,7 @@ export default {
         },
         {
           id: "21",
+          label: "",
           answer: null,
           options: [
             {

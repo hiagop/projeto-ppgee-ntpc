@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 
-      TODO: fix this
+      TODO: fix this]
       [Vue warn]: Duplicate keys detected: '0'. This may cause an update error.
          found in
           <BdiQuestion> at src/components/BdiQuestion.vue
@@ -12,9 +12,9 @@
                       <App> at src/App.vue
                         <Root> 
     -->
-    <div v-for="option in question.options" :key="option.id">
+    <div v-for="option in question.options" :key="`key-${option.id}`">
       <q-radio
-        :val="option.value"
+        :val="option.id"
         :label="option.label"
         v-model="question.answer"
       />
@@ -29,6 +29,7 @@ export default {
   props: {
     question: {
       id: Number,
+      label: String,
       options: [
         {
           id: Number,

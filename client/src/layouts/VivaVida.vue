@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh lpr fFf">
-    <q-header elevated class="bg-purple-8 text-white">
+    <q-header elevated class="bg-primary text-white q-pa-sm">
       <q-toolbar>
         <q-toolbar-title>
           <!-- <q-avatar
@@ -12,9 +12,7 @@
           </q-avatar> -->
           VivaVida
         </q-toolbar-title>
-        <q-btn class="bg-primary" elevated style="visibility: hidden"
-          >Entrar</q-btn
-        >
+        <q-btn elevated class="bg-blue-5" label="Login" to="/login" />
       </q-toolbar>
     </q-header>
 

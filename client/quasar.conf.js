@@ -13,23 +13,24 @@ module.exports = function(ctx) {
 
     extras: [
       // 'ionicons-v4',
-      // 'mdi-v3',
-      // 'fontawesome-v5',
+      "mdi-v3",
       // 'eva-icons',
       // 'themify',
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
-      "roboto-font", // optional, you are not bound to it
-      "material-icons" // optional, you are not bound to it
+      "roboto-font" // optional, you are not bound to it
+      // "fontawesome-v5"
+      // "material-icons" // optional, you are not bound to it
     ],
 
     framework: {
-      // iconSet: 'ionicons-v4',
+      iconSet: "mdi-v3",
       // lang: 'de', // Quasar language
 
       // all: true, // --- includes everything; for dev only!
 
       components: [
+        "QScrollArea",
         "QLayout",
         "QHeader",
         "QFooter",
@@ -40,7 +41,7 @@ module.exports = function(ctx) {
         "QToolbarTitle",
         "QForm",
         "QRadio",
-        "QOptionGroup",
+        "QCheckbox",
         "QField",
         "QInput",
         "QBtn",
