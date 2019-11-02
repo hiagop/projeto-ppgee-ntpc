@@ -3,6 +3,7 @@
     <div
       class="fit column items-center content-center justify-center q-col-gutter-md"
     >
+      <!-- TODO: apresentar um convite ao participante antes de continuar para o questionário -->
       <div class="col">
         Antes de continuar leia atentamente aos
         <span

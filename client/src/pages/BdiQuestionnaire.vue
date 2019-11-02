@@ -1,5 +1,8 @@
 <template>
   <q-page class="flex flex-center">
+    <!-- TODO: exibir instruções para o preenchimento do questionário
+               exibir a pontuação final e a recomendação de que um profissional
+               de psicologia deve ser procurado -->
     <div
       class="fit column content-center items-center justify-center q-col-gutter-lg"
     >
