@@ -31,7 +31,7 @@
           :loading="submitting"
           :disabled="!questions.map(q => q.answer).every(a => a !== null)"
           v-if="index == 20"
-          @click="submit()"
+          @click.once="submit()"
           label="Enviar"
         />
       </div>
