@@ -30,7 +30,7 @@
           :disable="!accepted"
           size="lg"
           icon="mdi-facebook-box"
-          label="Login com Facebook"
+          label="Entrar com Facebook"
           class="bg-primary text-white"
           to="/bdi"
         />
@@ -40,6 +40,9 @@
 </template>
 
 <script>
+// const facebookProvider = new this.$auth.FacebookAuthProvider();
+// facebookProvider.addScope("");
+
 export default {
   name: "Login",
   data() {

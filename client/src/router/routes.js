@@ -4,9 +4,25 @@ const routes = [
     component: () => import("layouts/VivaVida.vue"),
     children: [
       { path: "/", component: () => import("pages/Index.vue") },
-      { path: "/login", component: () => import("pages/Login.vue") },
+      {
+        path: "/login",
+        component: () => import("pages/Login.vue")
+        // beforeEnter: (to, from, next) => {
+        //   return this.$auth.isAuthenticated
+        //     ? next({ path: "/" })
+        //     : next({ path: "/login" });
+        // }
+      },
 
-      { path: "/bdi", component: () => import("pages/BdiQuestionnaire.vue") },
+      {
+        path: "/bdi",
+        component: () => import("pages/BdiQuestionnaire.vue"),
+        beforeEnter: (to, from, next) => {
+          return this.$auth.isAuthenticated
+            ? next({ path: "/bdi" })
+            : next({ path: "/login" });
+        }
+      },
       {
         path: "/termos-de-privacidade",
         component: () => import("pages/PrivacyTerms.vue")

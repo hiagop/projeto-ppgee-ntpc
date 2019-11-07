@@ -14,7 +14,13 @@
             VivaVida
           </router-link>
         </q-toolbar-title>
-        <q-btn elevated class="bg-blue-5" label="Login" to="/login" />
+        <q-btn
+          elevated
+          class="bg-blue-5"
+          label="Entrar"
+          to="/login"
+          v-if="showLoginButton()"
+        />
       </q-toolbar>
     </q-header>
 
@@ -32,6 +38,11 @@
 export default {
   data() {
     return {};
+  },
+  methods: {
+    showLoginButton() {
+      return this.$route.path !== "/login";
+    }
   }
 };
 </script>
