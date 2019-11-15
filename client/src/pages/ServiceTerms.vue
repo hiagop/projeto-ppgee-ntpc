@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex">
-    <div class="column fit justify-center align-center content-center">
+    <div class="column fit justify-center items-center content-center">
       <div class="col-12 q-mpa-md">
         <h4>Termos de Serviço</h4>
       </div>
@@ -109,7 +109,7 @@ export default {
 
 style.<style lang="scss" scoped>
 .scroll-area {
-  min-width: 200px;
-  min-height: 600px;
+  min-width: 80em;
+  min-height: 40em;
 }
 </style>

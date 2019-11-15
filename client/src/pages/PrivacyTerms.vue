@@ -1,10 +1,10 @@
 <template>
   <q-page class="flex">
-    <div class="column fit justify-center align-center content-center">
+    <div class="column fit justify-center items-center content-center">
       <div class="col-12 q-mpa-md">
         <h4>Termos de Privacidade</h4>
       </div>
-      <q-scroll-area class="col-grow col-xs-12 col-sm-12 col-md-12 scroll-area">
+      <q-scroll-area class="col-auto col-xs-10 col-sm-10 col-md-10 scroll-area">
         <div>
           O Aplicativo Viva Vida se aplica ao site:
           https://apps.facebook.com/lts-vivavida. Esta página informa sobre as
@@ -131,7 +131,7 @@ export default {
 
 style.<style lang="scss" scoped>
 .scroll-area {
-  min-width: 200px;
-  min-height: 600px;
+  min-width: 80em;
+  min-height: 40em;
 }
 </style>
