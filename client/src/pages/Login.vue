@@ -6,16 +6,14 @@
       <!-- TODO: apresentar um convite ao participante antes de continuar para o questionário -->
       <div class="col">
         Antes de continuar leia atentamente aos
-        <span
-          ><router-link to="/termos-de-servico"
-            >Termos de Serviço</router-link
-          ></span
-        >
+        <span>
+          <router-link to="/termos-de-servico">Termos de Serviço</router-link>
+        </span>
         e aos
-        <span
-          ><router-link to="/termos-de-privacidade"
+        <span>
+          <router-link to="/termos-de-privacidade"
             >Termos de Privacidade</router-link
-          ></span
+          > </span
         >.
       </div>
       <div class="col">
@@ -32,7 +30,7 @@
           icon="mdi-facebook-box"
           label="Entrar com Facebook"
           class="bg-primary text-white"
-          to="/bdi"
+          @click.prevent.once="signin"
         />
       </div>
     </div>
@@ -40,20 +38,17 @@
 </template>
 
 <script>
-// const facebookProvider = new this.$auth.FacebookAuthProvider();
-// facebookProvider.addScope("");
-
 export default {
   name: "Login",
   data() {
     return { accepted: false, loggedIn: false };
   },
   methods: {
-    login() {
-      this.loggedIn = true;
+    signin() {
+      this.$store.dispatch("auth/facebookSignIn");
     },
     logout() {
-      this.loggedIn = false;
+      this.$store.commit("setUser", null);
     }
   }
 };

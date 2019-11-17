@@ -30,6 +30,10 @@ module.exports = function(ctx) {
       // all: true, // --- includes everything; for dev only!
 
       components: [
+        "QDialog",
+        "QCard",
+        "QCardSection",
+        "QCardActions",
         "QScrollArea",
         "QLayout",
         "QHeader",
@@ -55,7 +59,7 @@ module.exports = function(ctx) {
         "QItemLabel"
       ],
 
-      directives: ["Ripple"],
+      directives: ["Ripple", "ClosePopup"],
 
       // Quasar plugins
       plugins: ["Notify"]

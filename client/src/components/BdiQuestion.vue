@@ -8,7 +8,7 @@
       v-for="option in question.options"
       :key="`${question.id}.${option.id}`"
     >
-      <div class="col-11 justify-start q-pl-md">
+      <div class="col-10 justify-start q-pl-md">
         <q-radio
           :val="option.id"
           :label="option.label"

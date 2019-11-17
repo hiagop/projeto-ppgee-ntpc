@@ -1,8 +1,28 @@
 <template>
   <q-page class="flex flex-center">
-    <!-- TODO: exibir instruções para o preenchimento do questionário
-               exibir a pontuação final e a recomendação de que um profissional
-               de psicologia deve ser procurado -->
+    <q-dialog persistent v-model="showInstructions">
+      <q-card class="dialog-card">
+        <q-card-section>
+          <div class="text-h5">Instruções</div>
+        </q-card-section>
+
+        <q-card-section class="text-body2">
+          Por favor, leia cuidadosamente cada uma das alternativas dos 21
+          grupos. Em seguida, escolha uma frase de cada grupo (questão), que
+          melhor descreve o modo como você tem se sentido nas duas últimas
+          semanas, incluindo o dia de hoje. Clique na alternativa que
+          corresponde à afirmação que melhor expressa o seu ponto de vista sobre
+          a assertiva. Se mais de uma afirmação em um grupo lhe parecer
+          igualmente apropriada, escolha a de número mais alto neste grupo (0,
+          1, 2 ou 3). Marque apenas uma afirmação por grupo, incluindo o item 16
+          (alteração no padrão de sono) e o item 18 (alterações de apetite).
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn label="Entendi" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <div
       class="fit column content-center items-center justify-center q-col-gutter-lg"
     >
@@ -14,7 +34,7 @@
         <q-btn
           outline
           color="secondary"
-          @click="index -= 1"
+          @click="previous"
           v-if="index >= 1"
           label="Anterior"
         />
@@ -22,7 +42,7 @@
           color="secondary"
           :disabled="questions[index].answer === null"
           v-if="index < 20"
-          @click="index += 1"
+          @click="next"
           label="Próxima"
         />
         <q-btn
@@ -47,7 +67,8 @@ export default {
     return {
       index: 0,
       submitting: false,
-      questions: [
+      showInstructions: false
+      /* questions: [
         {
           id: "1",
           label: "Tristeza",
@@ -597,15 +618,29 @@ export default {
             }
           ]
         }
-      ]
+      ] */
     };
   },
   methods: {
+    next() {
+      this.$store.commit(
+        "questions/answerQuestion",
+        this.index,
+        this.questions[this.index].answer
+      );
+      console.log(this.index, this.questions[this.index].answer);
+
+      this.index += 1;
+    },
+    previous() {
+      this.index -= 1;
+    },
     submit() {
       // TODO: implement questionnaire submission method
       this.submitting = true;
       const answers = this.questions.map(({ id, answer }) => ({
-        [id]: answer
+        id,
+        answer
       }));
       setTimeout(() => {
         this.submitting = false;
@@ -613,8 +648,23 @@ export default {
       }, 2000);
     }
   },
-  components: { BdiQuestion }
+  components: { BdiQuestion },
+  computed: {
+    questions() {
+      return this.$store.state.questions.questions;
+    }
+  },
+  mounted() {
+    this.showInstructions = true;
+  }
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.dialog-card {
+  width: 600px;
+  height: 300px;
+  max-width: 80em;
+  max-height: 80em;
+}
+</style>
