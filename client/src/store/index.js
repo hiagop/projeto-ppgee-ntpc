@@ -1,7 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import auth from ".auth";
+import auth from "./auth";
+import questions from "./questions";
 
 Vue.use(Vuex);
 
@@ -9,7 +10,8 @@ export default function(/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       // then we reference it
-      auth
+      auth,
+      questions
     },
 
     // enable strict mode (adds overhead!)

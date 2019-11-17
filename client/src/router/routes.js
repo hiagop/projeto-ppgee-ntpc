@@ -13,16 +13,6 @@ const routes = [
         //     : next({ path: "/login" });
         // }
       },
-
-      {
-        path: "/bdi",
-        component: () => import("pages/BdiQuestionnaire.vue"),
-        beforeEnter: (to, from, next) => {
-          return this.$auth.isAuthenticated
-            ? next({ path: "/bdi" })
-            : next({ path: "/login" });
-        }
-      },
       {
         path: "/termos-de-privacidade",
         component: () => import("pages/PrivacyTerms.vue")
@@ -31,8 +21,16 @@ const routes = [
         path: "/termos-de-servico",
         component: () => import("pages/ServiceTerms.vue")
       },
-
-      { path: "/se", component: () => import("pages/SocioEconomics.vue") }
+      {
+        path: "/bdi",
+        component: () => import("pages/BdiQuestionnaire.vue")
+        // beforeEnter: (to, from, next) => {
+        //   return this.$auth.isAuthenticated
+        //     ? next({ path: "/bdi" })
+        //     : next({ path: "/login" });
+        // }
+      },
+      { path: "/result", component: () => import("pages/Result.vue") }
     ]
   }
 ];
