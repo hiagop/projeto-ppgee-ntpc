@@ -67,8 +67,8 @@ export default {
     return {
       index: 0,
       submitting: false,
-      showInstructions: false
-      /* questions: [
+      showInstructions: false,
+      questions: [
         {
           id: "1",
           label: "Tristeza",
@@ -618,17 +618,17 @@ export default {
             }
           ]
         }
-      ] */
+      ]
     };
   },
   methods: {
     next() {
-      this.$store.commit(
-        "questions/answerQuestion",
-        this.index,
-        this.questions[this.index].answer
-      );
-      console.log(this.index, this.questions[this.index].answer);
+      // this.$store.commit(
+      //   "questions/answerQuestion",
+      //   this.index,
+      //   this.questions[this.index].answer
+      // );
+      // console.log(this.index, this.questions[this.index].answer);
 
       this.index += 1;
     },
@@ -649,11 +649,6 @@ export default {
     }
   },
   components: { BdiQuestion },
-  computed: {
-    questions() {
-      return this.$store.state.questions.questions;
-    }
-  },
   mounted() {
     this.showInstructions = true;
   }
