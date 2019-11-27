@@ -1,23 +1,43 @@
 import firebase from "firebase";
+import "firebase/firestore";
+
+import { db } from "../../boot/firebase";
 
 const facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
 
 export function facebookSignIn({ commit }) {
-  console.log("testando login");
   firebase
     .auth()
     .signInWithPopup(facebookAuthProvider)
-    .then(user => {
+    .then(result => {
+      const {
+        additionalUserInfo: { profile, isNewUser, providerId },
+        credential: { accessToken, signInMethod },
+        user: { displayName, email, emailVerified, phoneNumber }
+      } = result;
+
       const newUser = {
-        id: user.uid,
-        name: user.displayName,
-        email: user.email,
-        photoUrl: user.photoURL,
-        credentials: user.credentials
+        profile,
+        isNewUser,
+        providerId,
+        accessToken,
+        signInMethod,
+        displayName,
+        email,
+        emailVerified,
+        phoneNumber
       };
-      commit("setUser", newUser);
+
+      if (isNewUser) {
+        db.collection("users")
+          .add(newUser)
+          .then(userRef => {
+            console.log("Saved new user to DB:", userRef);
+            return commit("setUser", { id: userRef.id, ...newUser });
+          })
+          .catch(error => console.log(error));
+      }
+      return commit("setUser", newUser);
     })
-    .catch(error => {
-      console.log(error);
-    });
+    .catch(error => console.log(error));
 }
