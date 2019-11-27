@@ -4,7 +4,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "site": "viva-vida",
+    "site": "vivavida",
     "public": "dist/spa",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
