@@ -41,7 +41,7 @@
 export default {
   name: "Login",
   data() {
-    return { accepted: false, loggedIn: false };
+    return { accepted: false };
   },
   methods: {
     signin() {
@@ -50,6 +50,15 @@ export default {
     logout() {
       this.$store.commit("setUser", null);
     }
+  },
+  beforeCreate() {
+    this.$store.subscribe(mutation => {
+      if (mutation.type === "auth/setUser") {
+        if (mutation.payload) {
+          this.$router.push({ path: "/bdi" });
+        }
+      }
+    });
   }
 };
 </script>
