@@ -5,7 +5,19 @@ import { db } from "../../boot/firebase";
 
 const usersRef = db.collection("users");
 
+const facebookPermissions = [
+  "user_posts",
+  "user_likes",
+  "user_hometown",
+  "user_location",
+  "user_gender",
+  "user_birthday"
+];
 const facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
+
+facebookPermissions.map(permission =>
+  facebookAuthProvider.addScope(permission)
+);
 
 export function facebookSignIn({ commit }) {
   firebase
@@ -13,10 +25,12 @@ export function facebookSignIn({ commit }) {
     .signInWithPopup(facebookAuthProvider)
     .then(async result => {
       const {
-        additionalUserInfo: { profile, isNewUser, providerId },
+        additionalUserInfo: { profile, providerId },
         credential: { accessToken, signInMethod },
-        user: { displayName, email, emailVerified, phoneNumber }
+        user: { displayName, email, phoneNumber }
       } = result;
+
+      // console.log(result);
 
       if (profile) {
         let userSnapshot = await usersRef.doc(profile.id).get();
@@ -28,14 +42,12 @@ export function facebookSignIn({ commit }) {
 
         const newUser = {
           profile,
-          isNewUser,
           filledQuestionnaire: false,
           providerId,
           accessToken,
           signInMethod,
           displayName,
           email,
-          emailVerified,
           phoneNumber
         };
 
@@ -48,9 +60,15 @@ export function facebookSignIn({ commit }) {
           })
           .catch(error => console.log(error));
       } else {
-        // commit("setError", "login-error");
-        return;
+        return commit("setUser", null);
       }
     })
     .catch(error => console.log(error));
+}
+
+export function logout({ commit }) {
+  firebase
+    .auth()
+    .signOut()
+    .then(() => commit("setUser", null));
 }

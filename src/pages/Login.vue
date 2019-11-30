@@ -45,15 +45,15 @@ export default {
   },
   methods: {
     signin() {
-      this.$store.dispatch("auth/facebookSignIn");
+      this.$store.dispatch("facebookSignIn");
     },
     logout() {
-      this.$store.commit("setUser", null);
+      this.$store.dispatch("logout");
     }
   },
   beforeCreate() {
     this.$store.subscribe(mutation => {
-      if (mutation.type === "auth/setUser") {
+      if (mutation.type === "setUser") {
         if (mutation.payload) {
           this.$router.push({ path: "/bdi" });
         }

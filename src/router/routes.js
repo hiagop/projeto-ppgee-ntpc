@@ -1,3 +1,8 @@
+import Store from "../store";
+
+const store = Store();
+console.log(store);
+
 const routes = [
   {
     path: "/",
@@ -6,12 +11,11 @@ const routes = [
       { path: "/", component: () => import("pages/Index.vue") },
       {
         path: "/login",
-        component: () => import("pages/Login.vue")
-        // beforeEnter: (to, from, next) => {
-        //   return this.$auth.isAuthenticated
-        //     ? next({ path: "/" })
-        //     : next({ path: "/login" });
-        // }
+        component: () => import("pages/Login.vue"),
+        beforeEnter: (to, from, next) => {
+          console.log(store.getters);
+          return store.getters.isAuthenticated ? next({ path: "/" }) : next();
+        }
       },
       {
         path: "/termos-de-privacidade",
@@ -23,12 +27,12 @@ const routes = [
       },
       {
         path: "/bdi",
-        component: () => import("pages/BdiQuestionnaire.vue")
-        // beforeEnter: (to, from, next) => {
-        //   return this.$auth.isAuthenticated
-        //     ? next({ path: "/bdi" })
-        //     : next({ path: "/login" });
-        // }
+        component: () => import("pages/BdiQuestionnaire.vue"),
+        beforeEnter: (to, from, next) => {
+          return store.getters.isAuthenticated
+            ? next()
+            : next({ path: "/login" });
+        }
       },
       { path: "/result", component: () => import("pages/Result.vue") }
     ]
