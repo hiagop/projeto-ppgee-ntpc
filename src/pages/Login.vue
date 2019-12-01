@@ -57,7 +57,7 @@ export default {
         if (mutation.payload.filledQuestionnaire) {
           this.$router.push({ path: "/result" });
         }
-        this.$router.push({ path: "/result" });
+        this.$router.push({ path: "/bdi" });
       }
     });
   }
