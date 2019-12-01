@@ -53,11 +53,10 @@ export default {
   },
   beforeCreate() {
     this.$store.subscribe(mutation => {
+      console.log("Login page mutation subscription log:", mutation);
       if (mutation.type === "setUser") {
-        if (mutation.payload.filledQuestionnaire) {
-          this.$router.push({ path: "/result" });
-        }
-        this.$router.push({ path: "/bdi" });
+        const path = mutation.payload.filledQuestionnaire ? "/result" : "/bdi";
+        this.$router.push({ path });
       }
     });
   }

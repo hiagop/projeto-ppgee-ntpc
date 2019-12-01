@@ -7,15 +7,16 @@
         </q-card-section>
 
         <q-card-section class="text-body2">
-          Por favor, leia cuidadosamente cada uma das alternativas dos 21
-          grupos. Em seguida, escolha uma frase de cada grupo (questão), que
-          melhor descreve o modo como você tem se sentido nas duas últimas
-          semanas, incluindo o dia de hoje. Clique na alternativa que
-          corresponde à afirmação que melhor expressa o seu ponto de vista sobre
-          a assertiva. Se mais de uma afirmação em um grupo lhe parecer
-          igualmente apropriada, escolha a de número mais alto neste grupo (0,
-          1, 2 ou 3). Marque apenas uma afirmação por grupo, incluindo o item 16
-          (alteração no padrão de sono) e o item 18 (alterações de apetite).
+          {{ user.profile.first_name }}, por favor, leia cuidadosamente cada uma
+          das alternativas dos 21 grupos. Em seguida, escolha uma frase de cada
+          grupo (questão), que melhor descreve o modo como você tem se sentido
+          nas duas últimas semanas, incluindo o dia de hoje. Clique na
+          alternativa que corresponde à afirmação que melhor expressa o seu
+          ponto de vista sobre a assertiva. Se mais de uma afirmação em um grupo
+          lhe parecer igualmente apropriada, escolha a de número mais alto neste
+          grupo (0, 1, 2 ou 3). Marque apenas uma afirmação por grupo, incluindo
+          o item 16 (alteração no padrão de sono) e o item 18 (alterações de
+          apetite).
         </q-card-section>
 
         <q-card-actions align="right">
@@ -643,6 +644,13 @@ export default {
   components: { BdiQuestion },
   mounted() {
     this.showInstructions = true;
+  },
+  beforeCreate() {
+    this.$store.subscribe(mutation => {
+      if (mutation.type === "saveQuestions") {
+        this.$router.push({ path: "/result" });
+      }
+    });
   }
 };
 </script>
