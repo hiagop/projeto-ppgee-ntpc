@@ -623,29 +623,21 @@ export default {
   },
   methods: {
     next() {
-      // this.$store.commit(
-      //   "questions/answerQuestion",
-      //   this.index,
-      //   this.questions[this.index].answer
-      // );
-      // console.log(this.index, this.questions[this.index].answer);
-
       this.index += 1;
     },
     previous() {
       this.index -= 1;
     },
     submit() {
-      // TODO: implement questionnaire submission method
-      this.submitting = true;
-      const answers = this.questions.map(({ id, answer }) => ({
-        id,
-        answer
-      }));
-      setTimeout(() => {
-        this.submitting = false;
-        console.log(answers);
-      }, 2000);
+      this.$store.dispatch("submitAnswers", {
+        questions: this.questions,
+        userId: this.user.profile.id
+      });
+    }
+  },
+  computed: {
+    user() {
+      return this.$store.getters.user;
     }
   },
   components: { BdiQuestion },

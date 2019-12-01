@@ -1,7 +1,6 @@
 import Store from "../store";
 
 const store = Store();
-console.log(store);
 
 const routes = [
   {
@@ -13,7 +12,6 @@ const routes = [
         path: "/login",
         component: () => import("pages/Login.vue"),
         beforeEnter: (to, from, next) => {
-          console.log(store.getters);
           return store.getters.isAuthenticated ? next({ path: "/" }) : next();
         }
       },
@@ -34,7 +32,15 @@ const routes = [
             : next({ path: "/login" });
         }
       },
-      { path: "/result", component: () => import("pages/Result.vue") }
+      {
+        path: "/result",
+        component: () => import("pages/Result.vue"),
+        beforeEnter: (to, from, next) => {
+          return store.getters.isAuthenticated
+            ? next()
+            : next({ path: "/login" });
+        }
+      }
     ]
   }
 ];

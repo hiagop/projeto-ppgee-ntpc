@@ -54,9 +54,10 @@ export default {
   beforeCreate() {
     this.$store.subscribe(mutation => {
       if (mutation.type === "setUser") {
-        if (mutation.payload) {
-          this.$router.push({ path: "/bdi" });
+        if (mutation.payload.filledQuestionnaire) {
+          this.$router.push({ path: "/result" });
         }
+        this.$router.push({ path: "/result" });
       }
     });
   }

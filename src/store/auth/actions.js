@@ -72,3 +72,18 @@ export function logout({ commit }) {
     .signOut()
     .then(() => commit("setUser", null));
 }
+
+export function submitAnswers({ commit }, payload) {
+  const { questions, userId } = payload;
+
+  const answers = questions.map(question => ({
+    questionId: question.id,
+    questionLabel: question.label,
+    answer: question.options[question.answer]
+  }));
+
+  usersRef
+    .doc(userId)
+    .update({ bdi: answers, filledQuestionnaire: true })
+    .then(() => commit("saveQuestions", { answers }));
+}
