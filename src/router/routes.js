@@ -27,8 +27,11 @@ const routes = [
         path: "/bdi",
         component: () => import("pages/BdiQuestionnaire.vue"),
         beforeEnter: (to, from, next) => {
+          const user = store.getters.user;
           return store.getters.isAuthenticated
-            ? next()
+            ? !user.filledQuestionnaire
+              ? next()
+              : next({ path: "/result" })
             : next({ path: "/login" });
         }
       },

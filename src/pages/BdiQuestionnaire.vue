@@ -6,7 +6,7 @@
           <div class="text-h5">Instruções</div>
         </q-card-section>
 
-        <q-card-section class="text-body2">
+        <q-card-section class="text-justify text-body2">
           {{ user.profile.first_name }}, por favor, leia cuidadosamente cada uma
           das alternativas dos 21 grupos. Em seguida, escolha uma frase de cada
           grupo (questão), que melhor descreve o modo como você tem se sentido
