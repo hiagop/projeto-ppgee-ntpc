@@ -3,19 +3,13 @@
     <q-header elevated class="bg-primary text-white q-pa-sm">
       <q-toolbar>
         <q-toolbar-title>
-          <!-- <q-avatar
-            size="80px"
-            square
-            rounded
-          >
-            <img src="../assets/logo-viva-vida.svg">
-          </q-avatar> -->
           <router-link class="text-white" to="/">
-            VivaVida
+            <q-avatar size="80px" square rounded>
+              <img src="../statics/round-logo-viva-vida.png" alt="Viva Vida" />
+            </q-avatar>
           </router-link>
         </q-toolbar-title>
 
-        <!-- <div>{{ isAuthenticated }}</div> -->
         <q-btn
           elevated
           class="bg-blue-5"
@@ -38,7 +32,7 @@
     </q-page-container>
 
     <q-footer elevated class="bg-grey-10 text-white">
-      <q-toolbar> </q-toolbar>
+      <q-toolbar></q-toolbar>
     </q-footer>
   </q-layout>
 </template>
@@ -76,8 +70,4 @@ export default {
 };
 </script>
 
-style.<style lang="scss" scoped>
-a {
-  text-decoration: none;
-}
-</style>
+style.<style lang="scss" scoped></style>
