@@ -1,8 +1,8 @@
 <template>
   <q-page>
     <div class="container">
-      <div class="title text-h3 text-center">PROJETO VIVA VIDA</div>
-      <div class="message text-justify text-body1">
+      <div class="title text-h3 text-center">Projeto VivaVida</div>
+      <div class="message text-justify">
         Uma pesquisa está sendo realizada pela aluna de doutorado Priscila
         Siqueira Aranha, com o título "Um Modelo Computacional para Descrever
         Traços Depressivos em Alunos de Pós-Graduação a partir dos seus
@@ -16,7 +16,7 @@
         especialista e de extrema importância para o desenvolvimento deste
         estudo.
       </div>
-      <div class="btn">
+      <div>
         <q-btn
           elevated
           class="bg-blue-5 text-white"
@@ -101,29 +101,24 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  display: grid;
-  grid-template-rows: 25vh 40vh 35vh;
-  grid-template-columns: 50vw;
+  display: flex;
+  flex-direction: column;
 
-  justify-content: center;
+  max-width: 100ch;
+  max-height: 100vh;
+
+  align-items: center;
+  justify-items: center;
+
+  margin: auto;
+  padding: 50px;
 }
-
-.title {
-  grid-row: 1/2;
-
-  align-self: end;
-  justify-self: center;
+.container > div {
+  margin-bottom: 25px;
 }
 
 .message {
-  grid-row: 2/3;
-  grid-column: 1/2;
-
-  align-self: start;
-
-  // min-width: 300px;
-
-  padding: 50px;
+  font-size: 14pt;
 }
 
 .team-container {
@@ -132,7 +127,6 @@ export default {
   grid-template-columns: repeat(5, 1fr);
 
   align-content: center;
-  // justify-content: center;
 }
 
 .team-title {
@@ -149,9 +143,6 @@ export default {
   justify-content: center;
 }
 
-// .member-profile > p {
-//   flex-wrap: wrap;
-// }
 .member-profile > p {
   text-align: center;
   width: 30ch;
@@ -159,25 +150,11 @@ export default {
 }
 
 .member-profile > img {
-  // grid-row: 2/3;
-
-  // align-self: center;
-  // justify-self: center;
-
-  // object-fit: contain;
-
   width: 200px;
   height: 200px;
 
   margin-bottom: 10px;
 
   border-radius: 50vh;
-}
-
-.btn {
-  grid-row: 3/4;
-
-  align-self: start;
-  justify-self: center;
 }
 </style>

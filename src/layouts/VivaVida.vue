@@ -15,7 +15,7 @@
           class="bg-blue-5"
           label="Entrar"
           to="/login"
-          v-if="!(isAuthenticated || isLoginPage)"
+          v-if="!(isAuthenticated || isLoginPage || isTermsPage)"
         />
         <q-btn
           elevated
@@ -56,6 +56,12 @@ export default {
     },
     isLoginPage() {
       return this.$route.path === "/login";
+    },
+    isTermsPage() {
+      return (
+        this.$route.path === "/termos-de-servico" ||
+        this.$route.path === "/termos-de-privacidade"
+      );
     }
   },
   beforeCreate() {

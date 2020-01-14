@@ -1,8 +1,8 @@
 <template>
   <q-page padding>
     <div class="container">
-      <div class="title text-center text-h4">Muito Obrigado!</div>
-      <div class="message text-justify text-body1">
+      <div class="text-center text-h4">Muito Obrigado!</div>
+      <div class="text-justify text-body1">
         {{ user.profile.first_name }}, agradecemos pela sua participação nesta
         pesquisa de doutorado. Este grupo de pesquisa, como um todo, agradece
         imensamente por sua atenciosa colaboração no preenchimento do Inventário
@@ -37,28 +37,19 @@ export default {
 
 <style>
 .container {
-  display: grid;
-  grid-template-rows: 2fr 3fr;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-direction: column;
 
   align-items: center;
   justify-items: center;
+
+  max-width: 100ch;
+
+  margin: auto;
+  padding: 50px;
 }
 
-.title {
-  grid-row: 1/2;
-  grid-column: 2/3;
-}
-
-.message {
-  grid-row: 2/3;
-  grid-column: 2/3;
-}
-
-.score {
-  background-color: #dddddd;
-  border-radius: 50px;
-  padding: 25px;
-  margin: 10px;
+.container > div {
+  margin-bottom: 20px;
 }
 </style>
