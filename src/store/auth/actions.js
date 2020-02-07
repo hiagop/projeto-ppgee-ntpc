@@ -3,7 +3,12 @@ import "firebase/firestore";
 
 import { db } from "../../boot/firebase";
 
-const usersRef = db.collection("users");
+const firebaseAuth = firebase.auth();
+
+firebaseAuth.languageCode = "pt";
+
+const twitterUsersRef = db.collection("twitter");
+const facebookUsersRef = db.collection("facebook");
 
 const facebookPermissions = [
   "user_posts",
@@ -14,6 +19,7 @@ const facebookPermissions = [
   "user_birthday"
 ];
 const facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
+const twitterAuthProvider = new firebase.auth.TwitterAuthProvider();
 
 facebookPermissions.map(permission =>
   facebookAuthProvider.addScope(permission)
@@ -30,13 +36,10 @@ export function facebookSignIn({ commit }) {
         user: { displayName, email, phoneNumber }
       } = result;
 
-      // console.log(result);
-
       if (profile) {
-        let userSnapshot = await usersRef.doc(profile.id).get();
+        let userSnapshot = await facebookUsersRef.doc(profile.id).get();
 
         if (userSnapshot.exists) {
-          console.log("User found!");
           return commit("setUser", userSnapshot.data());
         }
 
@@ -51,30 +54,71 @@ export function facebookSignIn({ commit }) {
           phoneNumber
         };
 
-        usersRef
+        facebookUsersRef
           .doc(profile.id)
           .set(newUser)
           .then(() => {
-            console.log("Saved new user to DB.");
             return commit("setUser", newUser);
           })
-          .catch(error => console.log(error));
+          .catch(error => console.error(error));
       } else {
         return commit("setUser", null);
       }
     })
-    .catch(error => console.log(error));
+    .catch(error => console.error(error));
+}
+
+export function twitterSignIn({ commit }) {
+  firebaseAuth
+    .signInWithPopup(twitterAuthProvider)
+    .then(async result => {
+      const {
+        additionalUserInfo: { profile, username, providerId },
+        credential: { accessToken, secret },
+        user: { displayName, email, phoneNumber }
+      } = result;
+
+      if (profile) {
+        let userSnapshot = await twitterUsersRef.doc(profile.id_str).get();
+
+        if (userSnapshot.exists) {
+          return commit("setUser", userSnapshot.data());
+        }
+
+        const newUser = {
+          profile,
+          filledQuestionnaire: false,
+          providerId,
+          accessToken,
+          secret,
+          username,
+          displayName,
+          email,
+          phoneNumber
+        };
+
+        console.log(newUser);
+
+        twitterUsersRef
+          .doc(profile.id_str)
+          .set(newUser)
+          .then(() => {
+            return commit("setUser", newUser);
+          })
+          .catch(error => console.error(error));
+      } else {
+        return commit("setUser", null);
+      }
+    })
+    .catch(error => console.error(error));
 }
 
 export function logout({ commit }) {
-  firebase
-    .auth()
-    .signOut()
-    .then(() => commit("setUser", null));
+  firebaseAuth.signOut().then(() => commit("setUser", null));
 }
 
 export function submitAnswers({ commit }, payload) {
-  const { questions, userId } = payload;
+  const { questions, userId, providerId } = payload;
 
   const answers = questions.map(question => ({
     questionId: question.id,
@@ -82,8 +126,11 @@ export function submitAnswers({ commit }, payload) {
     answer: question.options[question.answer]
   }));
 
+  const usersRef =
+    providerId === "twitter.com" ? twitterUsersRef : facebookUsersRef;
+
   usersRef
-    .doc(userId)
+    .doc(String(userId))
     .update({ bdi: answers, filledQuestionnaire: true })
     .then(() => commit("saveQuestions", { answers }));
 }

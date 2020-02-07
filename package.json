@@ -8,9 +8,8 @@
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
-    "test": "echo \"No test specified\" && exit 0",
-    "build:spa": "quasar build -m spa",
-    "deploy:spa": "push-dir --dir=dist/spa --remote=gh-pages --branch=master"
+    "build": "quasar build -m spa",
+    "deploy": "firebase deploy --only hosting"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",

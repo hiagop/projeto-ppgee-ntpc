@@ -632,7 +632,8 @@ export default {
     submit() {
       this.$store.dispatch("submitAnswers", {
         questions: this.questions,
-        userId: this.user.profile.id
+        userId: this.user.profile.id,
+        providerId: this.user.providerId
       });
     }
   },

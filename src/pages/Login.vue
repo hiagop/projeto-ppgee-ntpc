@@ -37,7 +37,7 @@
           label="Li e aceito os Termos de Serviço e os Termos de Privacidade"
         />
       </div>
-      <div>
+      <!-- <div>
         <q-btn
           elevated
           :disable="!accepted"
@@ -45,7 +45,18 @@
           icon="mdi-facebook-box"
           label="Entrar com Facebook"
           class="bg-primary text-white"
-          @click.prevent.once="signin"
+          @click.prevent.once="facebookSignin"
+        />
+      </div> -->
+      <div>
+        <q-btn
+          elevated
+          :disable="!accepted"
+          size="lg"
+          icon="mdi-twitter"
+          label="Entrar com Twitter"
+          class="bg-blue text-white"
+          @click.prevent.once="twitterSignin"
         />
       </div>
     </div>
@@ -59,8 +70,11 @@ export default {
     return { accepted: false };
   },
   methods: {
-    signin() {
+    facebookSignin() {
       this.$store.dispatch("facebookSignIn");
+    },
+    twitterSignin() {
+      this.$store.dispatch("twitterSignIn");
     },
     logout() {
       this.$store.dispatch("logout");
@@ -68,7 +82,6 @@ export default {
   },
   beforeCreate() {
     this.$store.subscribe(mutation => {
-      console.log("Login page mutation subscription log:", mutation);
       if (mutation.type === "setUser") {
         const path = mutation.payload.filledQuestionnaire ? "/result" : "/bdi";
         this.$router.push({ path });
